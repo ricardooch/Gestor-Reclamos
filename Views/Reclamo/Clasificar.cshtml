@@ -1,0 +1,123 @@
+﻿@model ReclamoClasificarViewModel
+
+@{
+    ViewData["Title"] = "Clasificar Reclamo";
+}
+
+<h2>Clasificar Reclamo</h2>
+
+<form asp-action="Clasificar" method="post">
+    <input type="hidden" asp-for="IdReclamo" />
+
+    <div class="mb-3">
+        <label class="form-label">Proveedor</label>
+        <input type="text" class="form-control" asp-for="NombreProveedor" value="@Model.NombreProveedor" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Dirección</label>
+        <input type="text" class="form-control" asp-for="DireccionProveedor" value="@Model.DireccionProveedor" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Detalle del Reclamo</label>
+        <textarea class="form-control" asp-for="DetalleReclamo" class="form-control" value="@Model.DetalleReclamo" readonly></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Teléfono</label>
+        <input type="text" class="form-control" asp-for="TelefonoProveedor" value="@Model.TelefonoProveedor" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Monto Reclamado</label>
+        <input type="text" class="form-control" asp-for="MontoReclamo" value="@Model.MontoReclamo" readonly />
+    </div>
+
+    <hr />
+    <h4>Datos del Consumidor</h4>
+
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control" asp-for="NombreConsumidor" value="@Model.NombreConsumidor" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Apellido</label>
+        <input type="text" class="form-control" asp-for="ApellidoConsumidor" value="@Model.ApellidoConsumidor" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Correo Electrónico</label>
+        <input type="text" class="form-control" asp-for="CorreoElectronico" value="@Model.CorreoElectronico" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">DUI del Consumidor</label>
+        <input type="text" class="form-control" asp-for="DuiConsumidor" value="@Model.DuiConsumidor" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Clasificación</label>
+        <select class="form-select" asp-for="IdEstado" id="estadoSelect">
+            @foreach (var estado in Model.Estados)
+            {
+                <option value="@estado.IdEstado">@estado.NombreEstado</option>
+            }
+        </select>
+    </div>
+
+    <div id="motivoAsesoria" class="mb-3" style="display: none;">
+        <label class="form-label">Motivo de Asesoría</label>
+        <textarea class="form-control" asp-for="MotivoAsesoria" maxlength="490"></textarea>
+    </div>
+
+    <div id="respuestaAsesoria" class="mb-3" style="display: none;">
+        <label class="form-label">Respuesta de Asesoría</label>
+        <textarea class="form-control" asp-for="RespuestaAsesoria" maxlength="490"></textarea>
+    </div>
+
+    <div id="detalleAviso" class="mb-3" style="display: none;">
+        <label class="form-label">Detalle de Aviso</label>
+        <textarea class="form-control" asp-for="DetalleAviso" maxlength="490"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Clasificación</button>
+</form>
+
+<script>
+    document.getElementById("estadoSelect").addEventListener("change", function () {
+        var estado = this.value;
+        document.getElementById("motivoAsesoria").style.display = estado == "3" ? "block" : "none";
+        document.getElementById("respuestaAsesoria").style.display = estado == "3" ? "block" : "none";
+        document.getElementById("detalleAviso").style.display = estado == "4" ? "block" : "none";
+    });
+
+    // validaciones
+    document.querySelector("form").addEventListener("submit", function (event) {
+        console.log('Entró a la validacion')
+        let estado = document.getElementById("estadoSelect").value;
+        let motivoAsesoria = document.getElementById("motivoAsesoria").style.display !== "none" ?
+                             document.querySelector("[asp-for='MotivoAsesoria']").value.trim() : null;
+        let respuestaAsesoria = document.getElementById("respuestaAsesoria").style.display !== "none" ?
+                                document.querySelector("[asp-for='RespuestaAsesoria']").value.trim() : null;
+        let detalleAviso = document.getElementById("detalleAviso").style.display !== "none" ?
+                           document.querySelector("[asp-for='DetalleAviso']").value.trim() : null;
+
+        let errores = [];
+
+        if (estado == "3") {
+            if (!motivoAsesoria) errores.push("El motivo de asesoría es obligatorio.");
+            if (!respuestaAsesoria) errores.push("La respuesta de asesoría es obligatoria.");
+        }
+
+        if (estado == "4" && !detalleAviso) {
+            errores.push("El detalle de aviso es obligatorio.");
+        }
+
+        if (errores.length > 0) {
+            event.preventDefault();
+            alert(errores.join("\n"));
+        }
+    });
+</script>
