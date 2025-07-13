@@ -1,0 +1,85 @@
+﻿@model TReclamo
+
+@{
+    ViewData["Title"] = "Detalle del Reclamo";
+}
+
+<h2 class="mb-4 text-primary">Detalle del Reclamo</h2>
+
+<div class="card shadow-lg">
+    <div class="card-body">
+        <h4 class="card-title text-secondary">Información del Reclamo</h4>
+        <hr />
+
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Proveedor:</strong> @Model.NombreProveedor</p>
+                <p><strong>Dirección del proveedor:</strong> @Model.DireccionProveedor</p>
+                <p><strong>Teléfono del proveedor:</strong> @(Model.TelefonoProveedor ?? "No especificado")</p>
+                <p><strong>Monto reclamado:</strong> @Model.MontoReclamo?.ToString("C")</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Fecha de ingreso:</strong> @Model.FechaIngreso.ToString("dd/MM/yyyy")</p>
+                <p><strong>Fecha de revisión:</strong> @(Model.FechaRevision?.ToString("dd/MM/yyyy") ?? "Pendiente")</p>
+                <p><strong>Estado:</strong> <span class="badge bg-info text-dark">@Model.IdEstadoNavigation.NombreEstado</span></p>
+            </div>
+        </div>
+
+        <h4 class="mt-4 text-secondary">Datos del Consumidor</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Nombre:</strong> @Model.IdConsumidorNavigation.NombreConsumidor @Model.IdConsumidorNavigation.ApellidoConsumidor</p>
+                <p><strong>Dirección:</strong> @Model.IdConsumidorNavigation.Direccion</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Correo electrónico:</strong> @Model.IdConsumidorNavigation.CorreoElectronico</p>
+                <p><strong>DUI:</strong> @Model.IdConsumidorNavigation.DuiConsumidor</p>
+            </div>
+        </div>
+
+        @if (Model.IdEstado != 1)
+        {
+            <h4 class="mt-4 text-secondary">Datos del Empleado</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Nombre:</strong> @Model.IdEmpleadoNavigation.Nombres @Model.IdEmpleadoNavigation.Apellidos</p>
+                    <p><strong>Usuario:</strong> @Model.IdEmpleadoNavigation.Usuario</p>
+                </div>
+            </div>
+        }
+
+        @if (Model.TAsesoria != null)
+        {
+            <h4 class="mt-4 text-secondary">Detalles de la Asesoría</h4>
+            <hr />
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Fecha Ingreso:</strong> @Model.TAsesoria.FechaIngreso.ToString("dd/MM/yyyy")</li>
+                <li class="list-group-item"><strong>Motivo:</strong> @Model.TAsesoria.MotivoAsesoria</li>
+                <li class="list-group-item"><strong>Respuesta:</strong> @Model.TAsesoria.RespuestaAsesoria</li>
+                <li class="list-group-item"><strong>Activo:</strong> @(Model.TAsesoria.Activo ? "Sí" : "No")</li>
+            </ul>
+        }
+        else if (Model.TAviso != null)
+        {
+            <h4 class="mt-4 text-secondary">Detalles del Aviso</h4>
+            <hr />
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Fecha Ingreso:</strong> @Model.TAviso.FechaIngreso.ToString("dd/MM/yyyy")</li>
+                <li class="list-group-item"><strong>Mensaje:</strong> @Model.TAviso.DetalleAviso</li>
+                <li class="list-group-item"><strong>Activo:</strong> @(Model.TAviso.Activo ? "Sí" : "No")</li>
+            </ul>
+        }
+        else
+        {
+            <h5 class="mt-4 text-danger">Este reclamo no ha sido clasificado como Asesoría o Aviso.</h5>
+        }
+
+        <div class="mt-4 text-center">
+            <a href="@Url.Action("Index", "Reclamo")" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a la lista
+            </a>
+        </div>
+    </div>
+</div>
