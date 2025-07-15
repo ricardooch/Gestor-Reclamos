@@ -1,22 +1,38 @@
 ﻿@model PTemp_Ochoa.Models.LoginViewModel
 
-<div class="container d-flex justify-content-center">
-    <div class="col-md-6 col-lg-4">
-        <h2>Login</h2>
-        <form asp-action="Login" method="post">
-            <div class="form-group mb-3">
-                <label asp-for="Usuario"></label>
-                <input asp-for="Usuario" class="form-control" maxlength="50" />
-                <span asp-validation-for="Usuario" class="text-danger"></span>
-            </div>
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
 
-            <div class="form-group mb-3">
-                <label asp-for="Clave"></label>
-                <input asp-for="Clave" type="password" class="form-control" maxlength="50" />
-                <span asp-validation-for="Clave" class="text-danger"></span>
-            </div>
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Iniciar Sesión</h2>
 
-            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-        </form>
+                    <!-- Aviso con credenciales de demo -->
+                    <div class="alert alert-info small text-center" role="alert">
+                        <strong>Demo: <br></strong> Usuario: <code>juan.perez</code> Clave: <code>clave123</code>
+                    </div>
+
+                    <form asp-action="Login" method="post">
+                        <div class="mb-3">
+                            <label asp-for="Usuario" class="form-label"></label>
+                            <input asp-for="Usuario" class="form-control" maxlength="50" />
+                            <span asp-validation-for="Usuario" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Clave" class="form-label"></label>
+                            <input asp-for="Clave" type="password" class="form-control" maxlength="50" />
+                            <span asp-validation-for="Clave" class="text-danger small"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>

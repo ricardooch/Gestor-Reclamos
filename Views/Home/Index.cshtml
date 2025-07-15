@@ -2,7 +2,15 @@
     ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">ATENCIÓN A RECLAMOS</h1>
-    <p>Prueba técnica - Analista programador - Ricardo Ochoa</p>
-</div>
+<section class="text-center py-5">
+    <div class="container">
+        <h1 class="display-5 fw-bold">Atención a Reclamos</h1>
+        <p class="lead mt-3 text-muted">
+            ¿Tienes algún inconveniente, sugerencia o situación que quieras reportar? </br> Aquí puedes registrarlo y nuestro personal dará seguimiento a tus reclamos de forma rápida y sencilla.
+        </p>
+        <a class="btn btn-primary btn-lg mt-4" asp-controller="Reclamo" asp-action="Crear">
+            Registrar un Reclamo
+        </a>
+    </div>
+</section>
+

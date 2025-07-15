@@ -4,70 +4,84 @@
     ViewData["Title"] = "Presentar Reclamo";
 }
 
-<div class="container d-flex justify-content-center">
-    <div class="col-md-6 col-lg-4">
-        <h2>RECLAMO</h2>
-        <form asp-action="Crear" method="post">
-            <h4>Datos Generales del Reclamo</h4>
-            <div class="mb-3">
-                <label class="form-label">Proveedor</label>
-                <input asp-for="NombreProveedor" class="form-control" required maxlength="50" />
-                <span asp-validation-for="NombreProveedor" class="text-danger"></span>
-            </div>
+<section class="container py-5">
+    <h2 class="text-center mb-4">Presentar Reclamo</h2>
 
-            <div class="mb-3">
-                <label class="form-label">Dirección</label>
-                <input asp-for="DireccionProveedor" class="form-control" required maxlength="50" />
-                <span asp-validation-for="DireccionProveedor" class="text-danger"></span>
-            </div>
+    <div class="card shadow">
+        <div class="card-body">
+            <form asp-action="Crear" method="post">
+                <div class="row g-4">
+                    <!-- Datos del Reclamo -->
+                    <div class="col-12 col-lg-6">
+                        <h5 class="mb-3">Datos Generales del Reclamo</h5>
 
-            <div class="mb-3">
-                <label class="form-label">Detalle del Reclamo</label>
-                <textarea asp-for="DetalleReclamo" class="form-control" required maxlength="250"></textarea>
-                <span asp-validation-for="DetalleReclamo" class="text-danger"></span>
-            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Proveedor</label>
+                            <input asp-for="NombreProveedor" class="form-control" required maxlength="50" />
+                            <span asp-validation-for="NombreProveedor" class="text-danger"></span>
+                        </div>
 
-            <div class="mb-3">
-                <label class="form-label">Teléfono</label>
-                <input asp-for="TelefonoProveedor" class="form-control" maxlength="10" />
-                <span asp-validation-for="TelefonoProveedor" class="text-danger"></span>
-            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Dirección del proveedor</label>
+                            <input asp-for="DireccionProveedor" class="form-control" required maxlength="50" />
+                            <span asp-validation-for="DireccionProveedor" class="text-danger"></span>
+                        </div>
 
-            <div class="mb-3">
-                <label class="form-label">Monto Reclamado</label>
-                <input asp-for="MontoReclamo" class="form-control" type="number" step="0.01" maxlength="9" />
-            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Detalle del reclamo</label>
+                            <textarea asp-for="DetalleReclamo" class="form-control" required maxlength="250"></textarea>
+                            <span asp-validation-for="DetalleReclamo" class="text-danger"></span>
+                        </div>
 
-            <hr />
-            <h4>Datos del Consumidor</h4>
+                        <div class="mb-3">
+                            <label class="form-label">Monto reclamado ($)</label>
+                            <input asp-for="MontoReclamo" class="form-control" type="number" step="0.01" maxlength="9" />
+                        </div>
+                    </div>
 
-            <div class="mb-3">
-                <label class="form-label">Nombres</label>
-                <input asp-for="NombreConsumidor" class="form-control" required maxlength="50" />
-                <span asp-validation-for="NombreConsumidor" class="text-danger"></span>
-            </div>
+                    <!-- Datos del Consumidor -->
+                    <div class="col-12 col-lg-6">
+                        <h5 class="mb-3">Datos del Consumidor</h5>
 
-            <div class="mb-3">
-                <label class="form-label">Apellidos</label>
-                <input asp-for="ApellidoConsumidor" class="form-control" required maxlength="50" />
-                <span asp-validation-for="ApellidoConsumidor" class="text-danger"></span>
-            </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Nombres</label>
+                                <input asp-for="NombreConsumidor" class="form-control" required maxlength="50" />
+                                <span asp-validation-for="NombreConsumidor" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Apellidos</label>
+                                <input asp-for="ApellidoConsumidor" class="form-control" required maxlength="50" />
+                                <span asp-validation-for="ApellidoConsumidor" class="text-danger"></span>
+                            </div>
+                        </div>
 
-            <div class="mb-3">
-                <label class="form-label">Correo Electrónico</label>
-                <input asp-for="CorreoElectronico" class="form-control" type="email" required maxlength="50" />
-                <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
-            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Correo electrónico</label>
+                            <input asp-for="CorreoElectronico" class="form-control" type="email" required maxlength="50" />
+                            <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
+                        </div>
 
-            <div class="mb-3">
-                <label class="form-label">DUI del Consumidor</label>
-                <input asp-for="DuiConsumidor" class="form-control" required maxlength="10" />
-                <span asp-validation-for="DuiConsumidor" class="text-danger"></span>
-            </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Teléfono</label>
+                                <input asp-for="TelefonoProveedor" class="form-control" maxlength="10" />
+                                <span asp-validation-for="TelefonoProveedor" class="text-danger"></span>
+                            </div>
 
-            <button type="submit" class="btn btn-primary w-100">Enviar Reclamo</button>
-        </form>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">DUI</label>
+                                <input asp-for="DuiConsumidor" class="form-control" required maxlength="10" />
+                                <span asp-validation-for="DuiConsumidor" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-primary px-4">Enviar reclamo</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-
+</section>
